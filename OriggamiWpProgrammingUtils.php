@@ -38,7 +38,6 @@ class OriggamiWpProgrammingUtils extends DesignPatterns\Singleton {
 	}
 	
 	public function handleOOP(){
-		require dirname(__FILE__).'/OOP/OOP.php';
 		$oop = new OOP\OOP();
 		$oop->loadUsefulClasses();
 	}
@@ -49,9 +48,11 @@ class OriggamiWpProgrammingUtils extends DesignPatterns\Singleton {
 	}
 
 	private function handleAutoload() {
-		$autoload = new Autoload\WpAutoload();
+		$autoload = new Autoload\WpAutoload(array(get_stylesheet_directory(),WP_PLUGIN_DIR));
+		$dir = basename(dirname(__FILE__));
+		$autoload->addNamespaceReplace(array('OriggamiWpProgrammingUtils'=>$dir));		
+		$autoload->handleAutoload();
 		$this->setAutoload($autoload);
-		$autoload->autoloadBasedOnNamespace();
 	}
 
 	/**
@@ -72,7 +73,6 @@ class OriggamiWpProgrammingUtils extends DesignPatterns\Singleton {
 	 */
 	function getUtils() {
 		if ( !$this->utils ) {
-			require dirname(__FILE__) . '/Utils/Utils.php';
 			$this->setUtils(new Utils\Utils());
 		}
 		return $this->utils;
