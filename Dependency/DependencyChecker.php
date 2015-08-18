@@ -1,6 +1,6 @@
 <?php
 
-namespace OriggamiWpProgrammingUtils\Autoload;
+namespace OriggamiWpProgrammingUtils\Dependency;
 
 /**
  * Description of DependencyChecker
