@@ -4,7 +4,11 @@
  * 
  * @return \OriggamiWpProgrammingUtils\OriggamiWpProgrammingUtils
  */
-function origgamiWp(){
-	$programmingTools = \OriggamiWpProgrammingUtils\OriggamiWpProgrammingUtils::getInstance();	
-	return $programmingTools;
+if ( !function_exists('oWpUtils') ) {
+
+	function oWpUtils() {
+		$programmingTools = \OriggamiWpProgrammingUtils\OriggamiWpProgrammingUtils::getInstance();
+		return $programmingTools;
+	}
+
 }

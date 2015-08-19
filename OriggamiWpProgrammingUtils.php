@@ -17,72 +17,68 @@
 
 namespace OriggamiWpProgrammingUtils;
 
-require dirname(__FILE__) . '/DesignPatterns/Singleton.php';
+if ( !class_exists('\OriggamiWpProgrammingUtils\OriggamiWpProgrammingUtils') ) {
+	require dirname(__FILE__) . '/DesignPatterns/Singleton.php';
 //require './oop_functions/OOPFunctions.php';
 
-/**
- * Description of WpProgrammingTools
- *
- * @author Pablo Pacheco <pablo.pacheco@origgami.com.br>
- */
-class OriggamiWpProgrammingUtils extends DesignPatterns\Singleton {
-
-	private $autoload;
-	private $oopFunctions;
-	private $utils;
-
-	public function start() {
-		$this->loadUsefulFiles();
-		$this->handleAutoload();
-		$this->handleOOP();
-	}
-	
-	public function handleOOP(){
-		$oop = new OOP\OOP();
-		$oop->loadUsefulClasses();
-	}
-
-	private function loadUsefulFiles() {
-		require dirname(__FILE__) . '/Autoload/WpAutoload.php';
-		require dirname(__FILE__) . '/PhpFunctions/php_functions.php';
-	}
-
-	private function handleAutoload() {
-		$autoload = new Autoload\WpAutoload(array(get_stylesheet_directory(),WP_PLUGIN_DIR));
-		$dir = basename(dirname(__FILE__));
-		$autoload->addNamespaceReplace(array('OriggamiWpProgrammingUtils'=>$dir));		
-		$autoload->handleAutoload();
-		$this->setAutoload($autoload);
-	}
-
 	/**
-	 * 
-	 * @return Autoload\WpAutoload;
+	 * Description of WpProgrammingTools
+	 *
+	 * @author Pablo Pacheco <pablo.pacheco@origgami.com.br>
 	 */
-	function getAutoload() {
-		return $this->autoload;
-	}
+	class OriggamiWpProgrammingUtils extends DesignPatterns\Singleton {
 
-	function setAutoload( Autoload\WpAutoload $autoload ) {
-		$this->autoload = $autoload;
-	}
+		private $autoload;
+		private $oopFunctions;
+		private $utils;
 
-	/**
-	 * 
-	 * @return Utils\Utils
-	 */
-	function getUtils() {
-		if ( !$this->utils ) {
-			$this->setUtils(new Utils\Utils());
+		public function start() {
+			$this->loadUsefulFiles();
+			$this->handleAutoload();
 		}
-		return $this->utils;
+
+		private function loadUsefulFiles() {
+			require dirname(__FILE__) . '/Autoload/WpAutoload.php';
+			require dirname(__FILE__) . '/PhpFunctions/php_functions.php';
+		}
+
+		private function handleAutoload() {
+			$autoload = new Autoload\WpAutoload(array(get_stylesheet_directory(), WP_PLUGIN_DIR));
+			$dir = basename(dirname(__FILE__));
+			$autoload->addNamespaceReplace(array('OriggamiWpProgrammingUtils' => $dir));
+			$autoload->handleAutoload();
+			$this->setAutoload($autoload);
+		}
+
+		/**
+		 * 
+		 * @return Autoload\WpAutoload;
+		 */
+		function getAutoload() {
+			return $this->autoload;
+		}
+
+		function setAutoload( Autoload\WpAutoload $autoload ) {
+			$this->autoload = $autoload;
+		}
+
+		/**
+		 * 
+		 * @return Utils\Utils
+		 */
+		function getUtils() {
+			if ( !$this->utils ) {
+				$this->setUtils(new Utils\Utils());
+			}
+			return $this->utils;
+		}
+
+		function setUtils( Utils\Utils $utils ) {
+			$this->utils = $utils;
+		}
+
 	}
 
-	function setUtils( Utils\Utils $utils ) {
-		$this->utils = $utils;
-	}
-
+	$programmingTools = \OriggamiWpProgrammingUtils\OriggamiWpProgrammingUtils::getInstance();
+	$programmingTools->start();
 }
-
-$programmingTools = \OriggamiWpProgrammingUtils\OriggamiWpProgrammingUtils::getInstance();
-$programmingTools->start();
