@@ -44,6 +44,11 @@ if ( !class_exists('\OriggamiWpProgrammingUtils\Dependency\DependencyManager') )
 		}
 
 		public function showNotices( $required = true ) {
+			global $pagenow;
+
+			if ( $pagenow != 'plugins.php' )
+				return;
+
 			$dependencies = $this->getDependencies();
 			$class = $required ? "error" : "updated";
 			$projectName = $this->getProjectName();
