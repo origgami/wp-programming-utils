@@ -7,7 +7,7 @@ namespace OriggamiWpProgrammingUtils\Autoload;
  *
  * @author Pablo Pacheco <pablo.pacheco@origgami.com.br>
  */
-if ( !class_exists('\OriggamiWpProgrammingUtils\Autoload\Autoload') ) {
+if ( !class_exists('\OriggamiWpProgrammingUtils\Autoload\WpAutoload') ) {
 
 	class WpAutoload {
 
