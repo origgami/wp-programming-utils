@@ -1,3 +1,6 @@
 {
-    "name": "origgami/wp-programming-utils"
+    "name": "origgami/wp-programming-utils",
+    "autoload": {
+        "psr-4": {"OriggamiWpProgrammingUtils\\": ""}
+    },
 }
