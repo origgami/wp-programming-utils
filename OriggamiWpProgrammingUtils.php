@@ -31,23 +31,26 @@ if ( !class_exists('\OriggamiWpProgrammingUtils\OriggamiWpProgrammingUtils') ) {
 		private $autoload;
 		private $oopFunctions;
 		private $utils;
-
-		public function start() {
+		
+		protected function __construct() {
+			parent::__construct();
 			$this->loadUsefulFiles();
 			$this->handleAutoload();
 		}
 
 		private function loadUsefulFiles() {
-			require dirname(__FILE__) . '/Autoload/WpAutoload.php';
-			require dirname(__FILE__) . '/PhpFunctions/php_functions.php';
+			require_once dirname(__FILE__) . '/Autoload/WpAutoload.php';
+			require_once dirname(__FILE__) . '/PhpFunctions/php_functions.php';
 		}
 
 		private function handleAutoload() {
-			$autoload = new Autoload\WpAutoload(array(get_stylesheet_directory(), WP_PLUGIN_DIR));
-			$dir = basename(dirname(__FILE__));
-			$autoload->addNamespaceReplace(array('OriggamiWpProgrammingUtils' => $dir));
-			$autoload->handleAutoload();
-			$this->setAutoload($autoload);
+			if(!$this->getAutoload()){
+				$autoload = new Autoload\WpAutoload(array(get_stylesheet_directory(), WP_PLUGIN_DIR));
+				$dir = basename(dirname(__FILE__));
+				$autoload->addNamespaceReplace(array('OriggamiWpProgrammingUtils' => $dir));
+				$autoload->handleAutoload();
+				$this->setAutoload($autoload);
+			}
 		}
 
 		/**
@@ -80,5 +83,4 @@ if ( !class_exists('\OriggamiWpProgrammingUtils\OriggamiWpProgrammingUtils') ) {
 	}
 
 	$programmingTools = \OriggamiWpProgrammingUtils\OriggamiWpProgrammingUtils::getInstance();
-	$programmingTools->start();
 }
