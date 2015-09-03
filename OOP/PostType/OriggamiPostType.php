@@ -20,8 +20,8 @@ if ( !class_exists('\OriggamiWpProgrammingUtils\OOP\PostType\OriggamiPostType') 
 		private $nameInfs = array();
 		private $textDomain = 'origgami';
 
-		public function register() {
-			add_action('init', array($this, 'registerPostType'));
+		public function register($priority=10) {
+			add_action('init', array($this, 'registerPostType'),$priority);
 		}
 
 		public function __construct( $id, $nameInfs, $textDomain = 'default' ) {
