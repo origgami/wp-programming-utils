@@ -56,11 +56,11 @@ if (!class_exists('\OriggamiWpProgrammingUtils\Content\Content')) {
 			$contents	 = $this->getContents();
 			wp_reset_postdata();
 			ob_start();
-			$the_query	 = new \WP_Query($args);
-			if ($the_query->have_posts()) {
-				while ($the_query->have_posts()) {
+			$gcQuery	 = new \WP_Query($args);
+			if ($gcQuery->have_posts()) {
+				while ($gcQuery->have_posts()) {
 					global $post;
-					$the_query->the_post();
+					$gcQuery->the_post();
 					$is_loaded_from_origgami_get_content = true;
 
 					$contents[] = array(
