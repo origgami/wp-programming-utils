@@ -34,6 +34,47 @@ if (!class_exists('\OriggamiWpProgrammingUtils\Content\Content')) {
 						jQuery('' + element + '[href="' + item['link'] + '"]').attr('href', '#' + item['slug']);
 					}
 				}
+
+				jQuery(window).load(function ($) {
+				    handleMenuActiveItem();				    
+				});
+
+				function handleMenuActiveItem() {
+				    var contentItems = [];    
+				    var offset=70;
+				    var currItemAnchor;
+				    jQuery('.nav .menu-item a').each(function () {
+				        var currLink = jQuery(this);
+				        var currLinkHref = currLink.attr('href');
+				        
+				        if(currLinkHref.indexOf('#')!=-1){
+				            var linkAnchor = currLinkHref.substr(currLinkHref.indexOf('#') + 1);
+				            var itemContentOffsetTop = jQuery('#' + linkAnchor).offset().top;
+				            var itemContentHeight = jQuery('#' + linkAnchor).height();
+				            var itemInf = {};
+				            itemInf.anchor = linkAnchor;
+				            itemInf.offsetTop = itemContentOffsetTop;
+				            itemInf.height = itemContentHeight;
+				            itemInf.href = currLinkHref;
+				            itemInf.id = currLink.parent().attr('id');
+				            contentItems.push(itemInf);            
+				        }
+				    });
+
+				    jQuery(window).on('scroll', function () {
+				        var win = jQuery(window);				        
+				        for (var i in contentItems) {
+				            var item = contentItems[i];
+				            if (win.scrollTop() > (item.offsetTop - offset) && currItemAnchor!=item.anchor) {				                
+				                currItemAnchor=item.anchor;
+				                jQuery('.nav .menu-item').removeClass('current-menu-item current_page_item active');
+				                jQuery('#' + item.id).addClass('current-menu-item current_page_item active');
+				            }
+				        }
+				    });
+				    jQuery(window).trigger('scroll');
+				    jQuery(window).scroll();
+				}
 			</script>
 			<?php
 		}
@@ -47,12 +88,13 @@ if (!class_exists('\OriggamiWpProgrammingUtils\Content\Content')) {
 
 		public function getContent($args = null) {
 			$args		 = wp_parse_args($args, array(
-				'post_type'		 => 'page',
-				'posts_per_page' => 1,
-				'bind_links'	 => 'menus', //menus | all | false
-				'template'		 => 'default'
+				'post_type'			  => 'page',
+				'posts_per_page' 	  => 1,
+				'bind'				  => 'menus', //menus | all | false
+				'highlight_menu_item' =>  true,
+				'template'		      => 'default',
 			));
-			$bindLinks	 = $args['bind_links'];
+			$bindLinks	 = $args['bind'];
 			$contents	 = $this->getContents();
 			wp_reset_postdata();
 			ob_start();
@@ -67,6 +109,7 @@ if (!class_exists('\OriggamiWpProgrammingUtils\Content\Content')) {
 						'slug'	 => $post->post_name,
 						'title'	 => get_the_title(),
 						'bind'	 => $bindLinks,
+						'highlight_menu_item' =>  $args['highlight_menu_item'],
 						'link'	 => get_the_permalink()
 					);
 

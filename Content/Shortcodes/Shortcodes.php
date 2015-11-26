@@ -26,10 +26,11 @@ if (!class_exists('\OriggamiWpProgrammingUtils\Content\Shortcodes\Shortcodes')) 
 
 			extract(shortcode_atts(
 			array(
-				'post_type'		 => 'page',
-				'posts_per_page' => 1,
-				'bind_links'	 => 'menus', //menus | all | false
-				'template'		 => 'default',
+				'post_type'			  => 'page',
+				'posts_per_page' 	  => 1,
+				'bind'				  => 'menus', //menus | all | false
+				'highlight_menu_item' =>  true,
+				'template'		      => 'default',
 			), $atts));
 
 			//return 'asdasds';
