@@ -120,8 +120,9 @@ if (!class_exists('\OriggamiWpProgrammingUtils\Content\Content')) {
 							$template = 'page.php';
 						}
 					}
-					echo '<a id="' . $post->post_name . '"></a>';
+					echo '<div class="section" id="' . $post->post_name . '">';
 					require( locate_template($template) );
+					echo '</div>';
 				}
 			} else {
 				// no posts found
