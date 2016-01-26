@@ -46,26 +46,27 @@ if (!class_exists('\OriggamiWpProgrammingUtils\Content\Content')) {
 				    jQuery('.nav .menu-item a').each(function () {
 				        var currLink = jQuery(this);
 				        var currLinkHref = currLink.attr('href');
-				        
 				        if(currLinkHref.indexOf('#')!=-1){
 				            var linkAnchor = currLinkHref.substr(currLinkHref.indexOf('#') + 1);
-				            var itemContentOffsetTop = jQuery('#' + linkAnchor).offset().top;
-				            var itemContentHeight = jQuery('#' + linkAnchor).height();
-				            var itemInf = {};
-				            itemInf.anchor = linkAnchor;
-				            itemInf.offsetTop = itemContentOffsetTop;
-				            itemInf.height = itemContentHeight;
-				            itemInf.href = currLinkHref;
-				            itemInf.id = currLink.parent().attr('id');
-				            contentItems.push(itemInf);            
+							if(jQuery('#' + linkAnchor).length){
+								var itemContentOffsetTop = jQuery('#' + linkAnchor).offset().top;
+								var itemContentHeight = jQuery('#' + linkAnchor).height();
+								var itemInf = {};
+								itemInf.anchor = linkAnchor;
+								itemInf.offsetTop = itemContentOffsetTop;
+								itemInf.height = itemContentHeight;
+								itemInf.href = currLinkHref;
+								itemInf.id = currLink.parent().attr('id');
+								contentItems.push(itemInf);
+							}
 				        }
 				    });
 
 				    jQuery(window).on('scroll', function () {
-				        var win = jQuery(window);				        
+				        var win = jQuery(window);
 				        for (var i in contentItems) {
 				            var item = contentItems[i];
-				            if (win.scrollTop() > (item.offsetTop - offset) && currItemAnchor!=item.anchor) {				                
+				            if (win.scrollTop() > (item.offsetTop - offset) && currItemAnchor!=item.anchor) {
 				                currItemAnchor=item.anchor;
 				                jQuery('.nav .menu-item').removeClass('current-menu-item current_page_item active');
 				                jQuery('#' + item.id).addClass('current-menu-item current_page_item active');
