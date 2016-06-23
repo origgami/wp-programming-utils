@@ -106,8 +106,8 @@ if (!class_exists('\OriggamiWpProgrammingUtils\OOP\PostType\OriggamiPostType')) 
 				'all_items'			 => __($nameInfs['plural'], $this->getTextDomain()),
 				'search_items'		 => __('Search', $this->getTextDomain()) . ' ' . __($nameInfs['plural'], $this->getTextDomain()),
 				'parent_item_colon'	 => __('Parent', $this->getTextDomain()) . ' ' . __($nameInfs['plural'], $this->getTextDomain()),
-				'not_found'			 => __('Nothing found.', $this->getTextDomain()),
-				'not_found_in_trash' => __('Nothing found.', $this->getTextDomain())
+				'not_found'			 => __('Nada encontrado', $this->getTextDomain()),
+				'not_found_in_trash' => __('Nada encontrado', $this->getTextDomain())
 			);
 			$labels			 = wp_parse_args($this->labels, $labelsDefaults);
 			return $labels;
